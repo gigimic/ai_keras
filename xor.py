@@ -14,7 +14,8 @@ import numpy as np
 from keras.utils import np_utils
 import tensorflow as tf
 # Using TensorFlow 1.0.0; use tf.python_io in later versions
-tf.python.control_flow_ops = tf
+# tf.python.control_flow_ops = tf
+tf.python_io = tf
 
 # Set random seed
 np.random.seed(42)
@@ -38,3 +39,17 @@ xor.add(Dense(2))
 xor.add(Activation("sigmoid"))
 
 xor.compile(loss="categorical_crossentropy", optimizer="adam", metrics = ['accuracy'])
+
+# print model architecture
+print(xor.summary())
+
+# Fitting the model
+history = xor.fit(X, y, epochs=3, verbose=0)
+
+# Scoring the model
+score = xor.evaluate(X, y)
+print("\nAccuracy: ", score[-1])
+
+# Checking the predictions
+print("\nPredictions:")
+print(xor.predict(X))
